@@ -8,7 +8,6 @@
 #define WIDTH 50
 #define HEIGHT 30
 
-srand(time(NULL));
 Snake snake({WIDTH/2, HEIGHT/2}, 1);
 Food food;
 
@@ -31,6 +30,7 @@ void board(){
 }
 
 int main(){
+    std::srand(std::time(NULL));
     while (true){
         board();
 
