@@ -1,5 +1,8 @@
 #include "snake.h"
 
+#define WIDTH 50
+#define HEIGHT 30
+
 Snake::Snake(COORD pos, int vel){
     this->pos = pos;
     this->vel = vel;
@@ -57,3 +60,12 @@ bool Snake::eaten(COORD foodPos){
 void Snake::grow(){
     this->len++;
 }
+
+bool Snake::isColliding(){
+    if (this->pos.X == 0 ||
+        this->pos.X == (WIDTH - 1) ||
+        this->pos.Y == 0 ||
+        this->pos.Y == (HEIGHT - 1))
+        return true;
+    else return false;
+};

@@ -14,6 +14,7 @@ class Snake{
         int getLen();
         bool eaten(COORD foodPos);
         void grow();
+        bool isColliding();
 
     private:
         COORD pos;

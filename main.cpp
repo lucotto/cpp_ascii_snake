@@ -29,10 +29,28 @@ void board(){
     }
 }
 
+void gameEnd(){
+    system("cls");
+    std::cout << R"(
+   _____                         ____                 _ _ 
+  / ____|                       / __ \               | | |
+ | |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __| | |
+ | | |_ |/ _` | '_ ` _ \ / _ \ | |  | \ \ / / _ \ '__| | |
+ | |__| | (_| | | | | | |  __/ | |__| |\ V /  __/ |  |_|_|
+  \_____|\__,_|_| |_| |_|\___|  \____/  \_/ \___|_|  (_|_)
+                                                          
+                                                          
+    )";
+}
+
 int main(){
     std::srand(std::time(NULL));
-    while (true){
+    bool gameOver = false;
+
+    while (!gameOver){
         board();
+        
+        if (snake.isColliding()) gameOver = true;
 
         if (kbhit()){
             snake.playerInput();
@@ -47,6 +65,8 @@ int main(){
 
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), {0, 0});
     }
+
+    gameEnd();
 
     return 0;
 }
