@@ -9,10 +9,22 @@ Snake::Snake(COORD pos, int vel){
 
 void Snake::playerInput(){
     switch(getch()){
-        case 'w': Snake::turn('u'); break;
-        case 's': Snake::turn('d'); break;
-        case 'd': Snake::turn('r'); break;
-        case 'a': Snake::turn('l'); break;
+        case 'w':{
+            if(this->dir != 'd') Snake::turn('u');
+            break;
+        }
+        case 's':{
+            if(this->dir != 'u') Snake::turn('d');
+            break;
+        }
+        case 'd':{
+            if(this->dir != 'l') Snake::turn('r');
+            break;
+        }
+        case 'a':{
+            if(this->dir != 'r') Snake::turn('l');
+            break;
+        }
     }
 }
 
