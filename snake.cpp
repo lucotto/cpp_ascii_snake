@@ -4,7 +4,7 @@
 #define HEIGHT 30
 
 Snake::Snake(COORD pos, int vel){
-    this->pos = pos;
+    this->pos = {pos};
     this->vel = vel;
     this->len = 1;
     this->dir = 'n';
@@ -37,15 +37,19 @@ void Snake::turn(char dir){
 
 void Snake::move(){
     switch(this->dir){
-        case 'u': pos.Y -= vel; break;
-        case 'r': pos.X += vel; break; 
-        case 'd': pos.Y += vel; break;
-        case 'l': pos.X -= vel; break;
+        case 'u': this->pos[0].Y -= vel; break;
+        case 'r': this->pos[0].X += vel; break; 
+        case 'd': this->pos[0].Y += vel; break;
+        case 'l': this->pos[0].X -= vel; break;
     }
 }
 
-COORD Snake::getPos(){
+std::vector<COORD> Snake::getCoords(){
     return this->pos;
+}
+
+COORD Snake::getHeadPos(){
+    return this->pos[0];
 }
 
 int Snake::getLen(){
@@ -53,19 +57,36 @@ int Snake::getLen(){
 }
 
 bool Snake::eaten(COORD foodPos){
-    if (foodPos.X == pos.X && foodPos.Y == pos.Y) return true;
+    if (foodPos.X == this->pos[0].X && foodPos.Y == this->pos[0].Y) return true;
     else return false;
 }
 
 void Snake::grow(){
+    short x = 0, y = 0;
+    switch(this->dir){
+        case 'u': y++; break;
+        case 'r': x--; break;
+        case 'd': y--; break;
+        case 'l': x++; break;
+    }
+    COORD newBody = {x, y};
+
     this->len++;
+    this->pos.push_back({newBody});
 }
 
 bool Snake::isColliding(){
-    if (this->pos.X == 0 ||
-        this->pos.X == (WIDTH - 1) ||
-        this->pos.Y == 0 ||
-        this->pos.Y == (HEIGHT - 1))
+    if (this->pos[0].X == 0 ||
+        this->pos[0].X == (WIDTH - 1) ||
+        this->pos[0].Y == 0 ||
+        this->pos[0].Y == (HEIGHT - 1))
         return true;
     else return false;
 };
+
+bool Snake::isBody(const int &i, const int &j){
+    for (auto it = this->pos.begin(); it != this->pos.end(); it++){
+        if (it->X == i && it->Y == j) return true;
+        else return false;
+    }
+}

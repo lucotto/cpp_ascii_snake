@@ -1,4 +1,3 @@
-#include <iostream>
 #include <cstdlib>
 #include <ctime>
 
@@ -8,19 +7,23 @@
 #define WIDTH 50
 #define HEIGHT 30
 
-Snake snake({WIDTH/2, HEIGHT/2}, 1);
+COORD startingPos = {WIDTH/2, HEIGHT/2};
+Snake snake(startingPos, 1);
 Food food;
 
 void board(){
-    COORD snakePos = snake.getPos();
+    COORD snakeHeadPos = snake.getHeadPos();
     COORD foodPos = food.getPos();
 
     for (int i = 0; i < HEIGHT; i++){
         std::cout << "\t\t\t\t\t\t#";
         for (int j = 0; j < WIDTH - 2; j++){
             if (i == 0 || i == HEIGHT - 1) std::cout << "#";
-            else if (i == snakePos.Y && j == snakePos.X){
+            else if (i == snakeHeadPos.Y && j == snakeHeadPos.X){
                 std::cout << "0";
+            }
+            else if (snake.isBody(i, j)){
+                std::cout << "o";
             }
             else if (i == foodPos.Y && j == foodPos.X) std::cout << "F";
             else std::cout << ".";
