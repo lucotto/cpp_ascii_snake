@@ -3,7 +3,7 @@
 ## TODO:
 
 ### [Snake]:
-#### -~~fix move()~~
+-~~fix move()~~
 
 ### [Main][board()]:
-#### -**fix for loop to print the snake, its body in particular**
+-**fix for loop to print the snake, its body in particular**
