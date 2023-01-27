@@ -1,9 +1,9 @@
-# cpp_ascii_snake
+# **cpp_ascii_snake**
 
-## TODO:
+## **TODO:**
 
 ### [Snake]:
 -~~fix move()~~
 
-### [Main][board()]:
--**fix for loop to print the snake, its body in particular**
+### **[Main][board()]:**
+-fix for loop to print the snake, its body in particular
