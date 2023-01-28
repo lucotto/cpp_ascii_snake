@@ -84,18 +84,24 @@ void Snake::grow(){
     this->pos.push_back({newBody});
 }
 
-bool Snake::isColliding(){
-    if (this->pos.front().X == 0 ||
-        this->pos.front().X == (WIDTH - 1) ||
-        this->pos.front().Y == 0 ||
-        this->pos.front().Y == (HEIGHT - 1))
-        return true;
-    else return false;
-};
-
 bool Snake::isBody(const int &i, const int &j){
     for (auto it = this->pos.begin()+1; it != this->pos.end(); it++){
         if (it->X == i && it->Y == j) return true;
     }
     return false;
 }
+
+bool Snake::isColliding(){
+    if (this->pos.front().X == 0 ||
+        this->pos.front().X == (WIDTH - 1) ||
+        this->pos.front().Y == 0 ||
+        this->pos.front().Y == (HEIGHT - 1)){
+        return true;
+    }
+
+    if (this->isBody(this->pos.front().X, this->pos.front().Y)){
+        return true;
+    }
+
+    return false;
+};
