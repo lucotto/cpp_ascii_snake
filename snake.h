@@ -20,7 +20,7 @@ class Snake{
         void grow();
         bool isColliding();
         bool isBody(const int &i, const int &j);
-
+        
     private:
         std::vector<COORD> pos;
         int len;

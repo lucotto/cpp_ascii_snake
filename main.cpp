@@ -7,17 +7,19 @@
 #define WIDTH 50
 #define HEIGHT 30
 #define ESC 27
+std::ofstream out;
 
 COORD startingPos = {WIDTH/2, HEIGHT/2};
 Snake snake(startingPos, 1);
-Food food;
+Food food(out);
+
 
 void board(){
     COORD snakeHeadPos = snake.getHeadPos();
     COORD foodPos = food.getPos();
 
     for (int i = 0; i < HEIGHT; i++){
-        std::cout << "\t\t\t\t\t\t#";
+        std::cout << "\t\t\t\t\t\t" << "#";
         for (int j = 0; j < WIDTH - 2; j++){
             if (i == 0 || i == HEIGHT - 1) std::cout << "#";
             else if (i == snakeHeadPos.Y && j == snakeHeadPos.X){
@@ -54,6 +56,7 @@ int main(){
     std::srand(std::time(NULL));
     bool gameOver = false;
     CONSOLE_CURSOR_INFO cursor;
+    out.open("output.txt");
 
     cursor.bVisible = FALSE;
     cursor.dwSize = 1;
@@ -74,7 +77,7 @@ int main(){
         snake.move();
 
         if (snake.eaten(food.getPos())){
-            food.genFood();
+            food.genFood(out);
             snake.grow();
         }
 
