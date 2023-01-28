@@ -22,7 +22,7 @@ void board(){
             else if (i == snakeHeadPos.Y && j == snakeHeadPos.X){
                 std::cout << "0";
             }
-            else if (snake.isBody(i, j)){
+            else if (snake.isBody(j, i)){
                 std::cout << "o";
             }
             else if (i == foodPos.Y && j == foodPos.X) std::cout << "F";
@@ -34,7 +34,7 @@ void board(){
 
 void gameEnd(){
     system("cls");
-    std::cout << R"(
+    std::cout << "\t\t" << R"(
    _____                         ____                 _ _ 
   / ____|                       / __ \               | | |
  | |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __| | |
@@ -44,6 +44,7 @@ void gameEnd(){
                                                           
                                                           
     )";
+    std::cout << "\n\nScore: " << snake.getLen()-1 << "\n\n";
 }
 
 int main(){
