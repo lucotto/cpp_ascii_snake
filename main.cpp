@@ -50,6 +50,14 @@ void gameEnd(){
 int main(){
     std::srand(std::time(NULL));
     bool gameOver = false;
+    CONSOLE_CURSOR_INFO cursor;
+
+    cursor.bVisible = FALSE;
+    cursor.dwSize = 1;
+
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+
+    system("cls");
 
     while (!gameOver){
         board();
