@@ -6,6 +6,7 @@
 
 #define WIDTH 50
 #define HEIGHT 30
+#define ESC 27
 
 COORD startingPos = {WIDTH/2, HEIGHT/2};
 Snake snake(startingPos, 1);
@@ -48,6 +49,7 @@ void gameEnd(){
 }
 
 int main(){
+    int isQuit;
     std::srand(std::time(NULL));
     bool gameOver = false;
     CONSOLE_CURSOR_INFO cursor;
@@ -79,6 +81,10 @@ int main(){
     }
 
     gameEnd();
+
+    while (getch() != ESC){
+        
+    }
 
     return 0;
 }
