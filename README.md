@@ -3,10 +3,10 @@
 ## **TODO:**
 
 ### **[Main][board()]:**
--fix for loop to print the snake, its body in particular
+-~~fix for loop to print the snake, its body in particular
 
 ### [Snake]:
--~~fix move()~~
+-~~fix move()
 
 ### [Food]:
 -fix food eventually not spawning
