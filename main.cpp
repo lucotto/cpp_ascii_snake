@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <ctime>
+#include <ncurses/ncurses.h>
 
 #include "snake.h"
 #include "food.h"
@@ -13,81 +14,68 @@ COORD startingPos = {WIDTH/2, HEIGHT/2};
 Snake snake(startingPos, 1);
 Food food(out);
 
-
 void board(){
     COORD snakeHeadPos = snake.getHeadPos();
     COORD foodPos = food.getPos();
 
     for (int i = 0; i < HEIGHT; i++){
-        std::cout << "\t\t\t\t\t\t" << "#";
-        for (int j = 0; j < WIDTH - 2; j++){
-            if (i == 0 || i == HEIGHT - 1) std::cout << "#";
-            else if (i == snakeHeadPos.Y && j == snakeHeadPos.X){
-                std::cout << "0";
+        for (int j = 0; j < WIDTH; j++){
+            if (i == 0 || i == HEIGHT-1 || j == 0 || j == WIDTH-1){
+                mvprintw(i, j, "#");
+            }
+            else if (j == snakeHeadPos.X && i == snakeHeadPos.Y){
+                mvprintw(i, j, "0");
             }
             else if (snake.isBody(j, i)){
-                std::cout << "o";
+                mvprintw(i, j, "o");
             }
-            else if (i == foodPos.Y && j == foodPos.X) std::cout << "F";
-            else std::cout << ".";
+            else if (j == foodPos.X && i == foodPos.Y){
+                mvprintw(i, j, "F");
+            }
+            else mvprintw(i, j, ".");
         }
-        std::cout << "#\n";
     }
+
 }
 
 void gameEnd(){
-    system("cls");
-    std::cout << "\t\t" << R"(
-   _____                         ____                 _ 
-  / ____|                       / __ \               | |
- | |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __| |
- | | |_ |/ _` | '_ ` _ \ / _ \ | |  | \ \ / / _ \ '__| |
- | |__| | (_| | | | | | |  __/ | |__| |\ V /  __/ |  |_|
-  \_____|\__,_|_| |_| |_|\___|  \____/  \_/ \___|_|  (_|
-                                                          
-                                                          
-    )";
-    std::cout << "\n\nScore: " << snake.getLen()-1 << "\n\n";
-    std::cout << "Press ESC to quit...\n";
+    clear();
+    printw("Game Over\n");
+    printw("Score: %d", snake.getLen()-1);
+    printw("\nPress ESC to quit...");
+    getch();
 }
 
 int main(){
-    int isQuit;
     std::srand(std::time(NULL));
     bool gameOver = false;
-    CONSOLE_CURSOR_INFO cursor;
     out.open("output.txt");
 
-    cursor.bVisible = FALSE;
-    cursor.dwSize = 1;
-
-    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
-
-    system("cls");
+    initscr();
 
     while (!gameOver){
         board();
-        
+        refresh();
+
         if (snake.isColliding()) gameOver = true;
 
-        if (kbhit()){
+        if (getch() != ERR){
             snake.playerInput();
         }
 
         snake.move();
+        refresh();
 
         if (snake.eaten(food.getPos())){
             food.genFood(out);
             snake.grow();
         }
-
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), {0, 0});
+        refresh();
     }
-
+    
     gameEnd();
-
-    while (getch() != ESC){
-    }
-
+    refresh();
+    getch();
+    endwin();
     return 0;
 }
