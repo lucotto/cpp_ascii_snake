@@ -7,26 +7,33 @@ Snake::Snake(COORD pos, int vel){
     this->pos = {pos};
     this->vel = vel;
     this->len = 1;
-    this->dir = 'n';
+    this->dir = 'r';
 }
 
 void Snake::playerInput(){
-    switch(getch()){
-        case 'w':{
-            if(this->dir != 'd') Snake::turn('u');
-            break;
-        }
-        case 's':{
-            if(this->dir != 'u') Snake::turn('d');
-            break;
-        }
-        case 'd':{
-            if(this->dir != 'l') Snake::turn('r');
-            break;
-        }
-        case 'a':{
-            if(this->dir != 'r') Snake::turn('l');
-            break;
+    halfdelay(1);
+    int ch = getch();
+
+    if (ch != ERR){
+        switch(ch){
+            case 'w':{
+                if(this->dir != 'd') Snake::turn('u');
+                break;
+            }
+            case 's':{
+                if(this->dir != 'u') Snake::turn('d');
+                break;
+            }
+            case 'd':{
+                if(this->dir != 'l') Snake::turn('r');
+                break;
+            }
+            case 'a':{
+                if(this->dir != 'r') Snake::turn('l');
+                break;
+            }
+            default:
+                break;
         }
     }
 }

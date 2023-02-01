@@ -10,7 +10,7 @@
 #define ESC 27
 std::ofstream out;
 
-COORD startingPos = {WIDTH/2, HEIGHT/2};
+COORD startingPos = {1, 1};
 Snake snake(startingPos, 1);
 Food food(out);
 
@@ -35,7 +35,6 @@ void board(){
             else mvprintw(i, j, ".");
         }
     }
-
 }
 
 void gameEnd(){
@@ -52,25 +51,25 @@ int main(){
     out.open("output.txt");
 
     initscr();
+    noecho();
+    curs_set(0);
+    cbreak();
 
+    nodelay(stdscr, true);
     while (!gameOver){
         board();
-        refresh();
-
-        if (snake.isColliding()) gameOver = true;
-
-        if (getch() != ERR){
-            snake.playerInput();
-        }
-
         snake.move();
         refresh();
+
+        snake.playerInput();
 
         if (snake.eaten(food.getPos())){
             food.genFood(out);
             snake.grow();
+            refresh();
         }
-        refresh();
+
+        if (snake.isColliding()) gameOver = true;
     }
     
     gameEnd();
