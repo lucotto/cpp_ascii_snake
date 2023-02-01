@@ -5,8 +5,8 @@
 #include "snake.h"
 #include "food.h"
 
-#define WIDTH 50
-#define HEIGHT 30
+#define WIDTH 30
+#define HEIGHT 15
 #define ESC 27
 std::ofstream out;
 
@@ -20,8 +20,20 @@ void board(){
 
     for (int i = 0; i < HEIGHT; i++){
         for (int j = 0; j < WIDTH; j++){
-            if (i == 0 || i == HEIGHT-1 || j == 0 || j == WIDTH-1){
-                mvprintw(i, j, "#");
+            if (i == 0){
+                if (j == 0) mvaddch(i, j, ACS_ULCORNER);
+                else if (j == WIDTH-1) mvaddch(i, j, ACS_URCORNER);
+                else mvaddch(i, j, ACS_HLINE);
+
+            }
+            else if (i == HEIGHT-1){
+                if (j == 0) mvaddch(i, j, ACS_LLCORNER);
+                else if (j == WIDTH-1) mvaddch(i, j, ACS_LRCORNER);
+                else mvaddch(i, j, ACS_HLINE);
+
+            }
+            else if (j == 0 || j == WIDTH-1){
+                mvaddch(i, j, ACS_VLINE);
             }
             else if (j == snakeHeadPos.X && i == snakeHeadPos.Y){
                 mvprintw(i, j, "0");
@@ -42,7 +54,7 @@ void gameEnd(){
     printw("Game Over\n");
     printw("Score: %d", snake.getLen()-1);
     printw("\nPress ESC to quit...");
-    getch();
+    while(getch() != ESC){;};
 }
 
 int main(){
@@ -55,13 +67,12 @@ int main(){
     curs_set(0);
     cbreak();
 
-    nodelay(stdscr, true);
     while (!gameOver){
         board();
-        snake.move();
-        refresh();
 
+        snake.move();
         snake.playerInput();
+        refresh();
 
         if (snake.eaten(food.getPos())){
             food.genFood(out);
