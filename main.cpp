@@ -3,6 +3,7 @@
 
 #include "snake.h"
 #include "food.h"
+#include "game.h"
 #include "const.h"
 
 std::ofstream out;
