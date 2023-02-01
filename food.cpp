@@ -1,4 +1,5 @@
 #include "food.h"
+#include "const.h"
 
 Food::Food(std::ofstream &out){
     Food::genFood(out);
