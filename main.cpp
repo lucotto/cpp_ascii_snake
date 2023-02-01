@@ -1,13 +1,10 @@
 #include <cstdlib>
 #include <ctime>
-#include <ncurses/ncurses.h>
 
 #include "snake.h"
 #include "food.h"
+#include "const.h"
 
-#define WIDTH 30
-#define HEIGHT 15
-#define ESC 27
 std::ofstream out;
 
 COORD startingPos = {1, 1};

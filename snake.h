@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <windows.h>
-//#include <conio.h>
 #include <vector>
 #include <algorithm>
 #include <ncurses/ncurses.h>

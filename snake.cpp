@@ -1,7 +1,5 @@
 #include "snake.h"
-
-#define WIDTH 50
-#define HEIGHT 30
+#include "const.h"
 
 Snake::Snake(COORD pos, int vel){
     this->pos = {pos};
