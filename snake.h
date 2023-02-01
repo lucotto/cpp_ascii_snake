@@ -7,15 +7,23 @@
 #include <algorithm>
 #include <ncurses/ncurses.h>
 
+enum Direction{
+    up = 1,
+    down = -1,
+    left = 2,
+    right = -2
+};
+
 class Snake{
     public:
         Snake(COORD pos, int vel);
         void playerInput();
-        void turn(char dir);
+        void turn(Direction d);
         void move();
         std::vector<COORD> getCoords();
         COORD getHeadPos();
         int getLen();
+
         bool eaten(COORD foodPos);
         void grow();
         bool isColliding();
@@ -25,7 +33,7 @@ class Snake{
         std::vector<COORD> pos;
         int len;
         int vel;
-        char dir;
+        int dir;
 };
 
 #endif

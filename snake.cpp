@@ -5,7 +5,7 @@ Snake::Snake(COORD pos, int vel){
     this->pos = {pos};
     this->vel = vel;
     this->len = 1;
-    this->dir = 'r';
+    this->dir = right;
 }
 
 void Snake::playerInput(){
@@ -14,20 +14,24 @@ void Snake::playerInput(){
 
     if (ch != ERR){
         switch(ch){
-            case 'w':{
-                if(this->dir != 'd') Snake::turn('u');
+            case 'w':
+            case KEY_UP:{
+                if(this->dir != 'd') Snake::turn(up);
                 break;
             }
-            case 's':{
-                if(this->dir != 'u') Snake::turn('d');
+            case 's':
+            case KEY_DOWN:{
+                if(this->dir != 'u') Snake::turn(down);
                 break;
             }
-            case 'd':{
-                if(this->dir != 'l') Snake::turn('r');
+            case 'd':
+            case KEY_RIGHT:{
+                if(this->dir != 'l') Snake::turn(right);
                 break;
             }
-            case 'a':{
-                if(this->dir != 'r') Snake::turn('l');
+            case 'a':
+            case KEY_LEFT:{
+                if(this->dir != 'r') Snake::turn(left);
                 break;
             }
             default:
@@ -36,18 +40,20 @@ void Snake::playerInput(){
     }
 }
 
-void Snake::turn(char dir){
-    this->dir = dir;
+void Snake::turn(Direction d){
+    if (this->dir + d != 0){
+        this->dir = d;
+    }
 }
 
 void Snake::move(){
     std::vector<COORD> oldPos = this->pos;
 
     switch(this->dir){
-        case 'u': this->pos.front().Y -= vel; break;
-        case 'r': this->pos.front().X += vel; break; 
-        case 'd': this->pos.front().Y += vel; break;
-        case 'l': this->pos.front().X -= vel; break;
+        case up: this->pos.front().Y -= vel; break;
+        case right: this->pos.front().X += vel; break; 
+        case down: this->pos.front().Y += vel; break;
+        case left: this->pos.front().X -= vel; break;
     }
 
     if (this->len > 1){

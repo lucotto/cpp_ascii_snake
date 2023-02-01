@@ -21,26 +21,16 @@ void board(){
                 if (j == 0) mvaddch(i, j, ACS_ULCORNER);
                 else if (j == WIDTH-1) mvaddch(i, j, ACS_URCORNER);
                 else mvaddch(i, j, ACS_HLINE);
-
             }
             else if (i == HEIGHT-1){
                 if (j == 0) mvaddch(i, j, ACS_LLCORNER);
                 else if (j == WIDTH-1) mvaddch(i, j, ACS_LRCORNER);
                 else mvaddch(i, j, ACS_HLINE);
-
             }
-            else if (j == 0 || j == WIDTH-1){
-                mvaddch(i, j, ACS_VLINE);
-            }
-            else if (j == snakeHeadPos.X && i == snakeHeadPos.Y){
-                mvprintw(i, j, "0");
-            }
-            else if (snake.isBody(j, i)){
-                mvprintw(i, j, "o");
-            }
-            else if (j == foodPos.X && i == foodPos.Y){
-                mvprintw(i, j, "F");
-            }
+            else if (j == 0 || j == WIDTH-1) mvaddch(i, j, ACS_VLINE);
+            else if (j == snakeHeadPos.X && i == snakeHeadPos.Y) mvprintw(i, j, "0");
+            else if (snake.isBody(j, i)) mvprintw(i, j, "o");
+            else if (j == foodPos.X && i == foodPos.Y) mvprintw(i, j, "F");
             else mvprintw(i, j, ".");
         }
     }
@@ -63,6 +53,7 @@ int main(){
     noecho();
     curs_set(0);
     cbreak();
+    keypad(stdscr, true);
 
     while (!gameOver){
         board();
@@ -82,7 +73,6 @@ int main(){
     
     gameEnd();
     refresh();
-    getch();
     endwin();
     return 0;
 }
