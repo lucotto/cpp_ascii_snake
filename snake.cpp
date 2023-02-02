@@ -1,5 +1,5 @@
 #include "snake.h"
-#include "game.h"
+#include "print.h"
 #include "const.h"
 
 Snake::Snake(COORD pos, int vel){
@@ -12,7 +12,7 @@ Snake::Snake(COORD pos, int vel){
 void Snake::playerInput(){
     halfdelay(1);
     int ch = getch();
-    Game game;
+    Print print;
 
     if (ch != ERR){
         switch(ch){
@@ -38,7 +38,7 @@ void Snake::playerInput(){
             }
             case 'p':
             case 27:
-                game.pause();
+                print.pause();
                 break;
             default:
                 break;
