@@ -4,7 +4,11 @@ void Print::board(Snake &snake, Food &food){    // def terminal is 120x30
     COORD snakeHeadPos = snake.getHeadPos();
     COORD foodPos = food.getPos();
     
-    // in mvaddch i is i+5, j is j+20 (board origin is [30,5])
+    attron(A_BOLD);
+    mvprintw(3, 20 + (WIDTH-5)/2, "Snake");
+    attroff(A_BOLD);
+    
+    // in mvaddch i is i+5, j is j+20 (board origin is [20,5])
     for (int i = 0; i < HEIGHT; i++){
         for (int j = 0; j < WIDTH; j++){
             if (i == 0){
@@ -69,12 +73,29 @@ void Print::gameEnd(Snake &snake){
     while(getch() != ESC){;};
 }
 
+// CHECK ROWS, COLS, YOFF, XOFF TO CENTER
+// CHECK PAUSE FADING AWAY
 void Print::pause(){
-    halfdelay(-1);
-    while(getch() != ESC || getch() != 'p'){
+    while(true){
+        const int ROWS = 8;
+        const int COLS = 18;
+        const int YOFF = HEIGHT - ROWS - 1;
+        const int XOFF = WIDTH - COLS - 2;
+
+        WINDOW *pause = newwin(ROWS, COLS, YOFF, XOFF);
+
+        refresh();
+        box(pause, 0, 0);
+        wrefresh(pause);
+
         attron(A_BOLD);
-        mvprintw(HEIGHT+1, WIDTH/2-5, "Pause");
+        mvprintw(YOFF+1, XOFF+3, "Pause");
         attroff(A_BOLD);
-        mvprintw(HEIGHT+2, 1, "Press ESC or P to unpause...");
+        mvprintw(YOFF+3, XOFF, "Press ESC or P");
+        mvprintw(YOFF+4, XOFF, "to unpause...");
+        if (getch() == ESC || getch() == 'p'){
+            delwin(pause);
+            break;
+        }
     }
 }

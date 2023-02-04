@@ -26,6 +26,7 @@ int main(){
     curs_set(0);
     cbreak();
     keypad(stdscr, true);
+    start_color();
 
     print.infoBox();
 
