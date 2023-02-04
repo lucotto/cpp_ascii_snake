@@ -27,6 +27,8 @@ int main(){
     cbreak();
     keypad(stdscr, true);
 
+    print.infoBox();
+
     while (!gameOver){
         print.board(snake, food);
 

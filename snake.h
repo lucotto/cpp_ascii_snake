@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <vector>
 #include <algorithm>
-#include <ncurses/ncurses.h>
+#include <curses.h>
 
 enum Direction{
     up = 1,

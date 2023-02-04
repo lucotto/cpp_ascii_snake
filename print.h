@@ -1,7 +1,7 @@
 #ifndef PRINT_H
 #define PRINT_H
 
-#include <ncurses/ncurses.h>
+#include <curses.h>
 #include <windows.h>
 
 #include "snake.h"
@@ -16,7 +16,6 @@ class Print{
         void pause();
         void gameEnd(Snake &snake);
         
-
     private:
 
 
