@@ -73,29 +73,32 @@ void Print::gameEnd(Snake &snake){
     while(getch() != ESC){;};
 }
 
-// CHECK ROWS, COLS, YOFF, XOFF TO CENTER
-// CHECK PAUSE FADING AWAY
+// center "pause" somehow?
+// run board after pause is over to refresh?
+// snake, food pass needed tho
 void Print::pause(){
+    const int ROWS = 8;
+    const int COLS = 18;
+    const int YOFF = (HEIGHT-ROWS)/2 + 5 - 2;
+    const int XOFF = (WIDTH-COLS)/2 + 20;
+
+    WINDOW *pause = newwin(ROWS, COLS, YOFF, XOFF);
+    refresh();
+    box(pause, 0, 0);
+    wrefresh(pause);
+
+    attron(A_BOLD);
+    mvprintw(YOFF+1, 1+XOFF+(COLS-5)/2, "Pause");
+    attroff(A_BOLD);
+    mvprintw(YOFF+4, XOFF+2, "Press ESC or P");
+    mvprintw(YOFF+5, XOFF+2, "  to unpause  ");
+
     while(true){
-        const int ROWS = 8;
-        const int COLS = 18;
-        const int YOFF = HEIGHT - ROWS - 1;
-        const int XOFF = WIDTH - COLS - 2;
-
-        WINDOW *pause = newwin(ROWS, COLS, YOFF, XOFF);
-
-        refresh();
-        box(pause, 0, 0);
-        wrefresh(pause);
-
-        attron(A_BOLD);
-        mvprintw(YOFF+1, XOFF+3, "Pause");
-        attroff(A_BOLD);
-        mvprintw(YOFF+3, XOFF, "Press ESC or P");
-        mvprintw(YOFF+4, XOFF, "to unpause...");
         if (getch() == ESC || getch() == 'p'){
             delwin(pause);
+            refresh();
             break;
         }
     }
+    Print::board(snake, food);
 }
