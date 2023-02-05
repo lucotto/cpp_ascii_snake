@@ -19,7 +19,8 @@ class Print{
         void infoBox();
         void pause();
         void gameEnd(Snake &snake);
-        
+        void score();
+
     private:
         Snake &snakeRef;
         Food &foodRef;
