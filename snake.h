@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <vector>
 #include <algorithm>
-#include <ncurses/ncurses.h>
+#include <curses.h>
 
 enum Direction{
     up = 1,
@@ -16,6 +16,7 @@ enum Direction{
 
 class Snake{
     public:
+        Snake() = default;
         Snake(COORD pos, int vel);
         void playerInput();
         void turn(Direction d);

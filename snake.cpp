@@ -1,4 +1,5 @@
 #include "snake.h"
+#include "print.h"
 #include "const.h"
 
 Snake::Snake(COORD pos, int vel){
@@ -11,6 +12,7 @@ Snake::Snake(COORD pos, int vel){
 void Snake::playerInput(){
     halfdelay(1);
     int ch = getch();
+    Print print;
 
     if (ch != ERR){
         switch(ch){
@@ -34,6 +36,16 @@ void Snake::playerInput(){
                 if(this->dir != 'r') Snake::turn(left);
                 break;
             }
+            case 'p':
+            case 27:
+                print.pause();
+                break;
+            case 'q':{
+                endwin();
+                exit(0);
+                break;
+            }
+
             default:
                 break;
         }

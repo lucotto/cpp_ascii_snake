@@ -2,12 +2,11 @@
 #define FOOD_H
 
 #include <windows.h>
-#include <fstream>
 
 class Food{
     public:
-        Food(std::ofstream &out);
-        void genFood(std::ofstream &out);
+        Food();
+        void genFood();
         COORD getPos();
 
     private:
