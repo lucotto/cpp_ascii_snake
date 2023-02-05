@@ -5,12 +5,10 @@
 #include "const.h"
 #include "print.h"
 
-std::ofstream out;
-
 COORD startingPos = {1, 1};
 Snake snake(startingPos, 1);
-Food food(out);
-Print print;
+Food food;
+Print print(snake, food);
 
 void gameEnd(){
     
@@ -19,7 +17,6 @@ void gameEnd(){
 int main(){
     std::srand(std::time(NULL));
     bool gameOver = false;
-    out.open("output.txt");
 
     initscr();
     noecho();
@@ -31,14 +28,14 @@ int main(){
     print.infoBox();
 
     while (!gameOver){
-        print.board(snake, food);
+        print.board();
 
         snake.move();
         snake.playerInput();
         refresh();
 
         if (snake.eaten(food.getPos())){
-            food.genFood(out);
+            food.genFood();
             snake.grow();
             refresh();
         }

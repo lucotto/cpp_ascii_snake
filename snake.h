@@ -16,6 +16,7 @@ enum Direction{
 
 class Snake{
     public:
+        Snake() = default;
         Snake(COORD pos, int vel);
         void playerInput();
         void turn(Direction d);

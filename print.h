@@ -10,15 +10,19 @@
 
 class Print{
     public:
-        Print() = default;
-        void board(Snake &snake, Food &food);
+        Print()
+            : snakeRef(*(new Snake())), foodRef(*(new Food()))
+        {
+        }
+        Print(Snake &snake, Food &food);
+        void board();
         void infoBox();
         void pause();
         void gameEnd(Snake &snake);
         
     private:
-
-
+        Snake &snakeRef;
+        Food &foodRef;
 };
 
 #endif

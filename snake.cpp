@@ -40,6 +40,12 @@ void Snake::playerInput(){
             case 27:
                 print.pause();
                 break;
+            case 'q':{
+                endwin();
+                exit(0);
+                break;
+            }
+
             default:
                 break;
         }

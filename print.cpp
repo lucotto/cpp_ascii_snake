@@ -1,8 +1,12 @@
 #include "print.h"
 
-void Print::board(Snake &snake, Food &food){    // def terminal is 120x30
-    COORD snakeHeadPos = snake.getHeadPos();
-    COORD foodPos = food.getPos();
+Print::Print(Snake &snake, Food &food)
+    : snakeRef(snake), foodRef(food){
+    }
+
+void Print::board(){    // def terminal is 120x30
+    COORD snakeHeadPos = snakeRef.getHeadPos();
+    COORD foodPos = foodRef.getPos();
     
     attron(A_BOLD);
     mvprintw(3, 20 + (WIDTH-5)/2, "Snake");
@@ -23,7 +27,7 @@ void Print::board(Snake &snake, Food &food){    // def terminal is 120x30
             }
             else if (j == 0 || j == WIDTH-1) mvaddch(i+5, j+20, ACS_VLINE);
             else if (j == snakeHeadPos.X && i == snakeHeadPos.Y) mvaddch(i+5, j+20, '0');
-            else if (snake.isBody(j, i)) mvaddch(i+5, j+20, 'o');
+            else if (snakeRef.isBody(j, i)) mvaddch(i+5, j+20, 'o');
             else if (j == foodPos.X && i == foodPos.Y) mvaddch(i+5, j+20, 'F');
             else mvaddch(i+5, j+20, '.');
         }
@@ -73,12 +77,9 @@ void Print::gameEnd(Snake &snake){
     while(getch() != ESC){;};
 }
 
-// center "pause" somehow?
-// run board after pause is over to refresh?
-// snake, food pass needed tho
 void Print::pause(){
     const int ROWS = 8;
-    const int COLS = 18;
+    const int COLS = 17;
     const int YOFF = (HEIGHT-ROWS)/2 + 5 - 2;
     const int XOFF = (WIDTH-COLS)/2 + 20;
 
@@ -88,17 +89,17 @@ void Print::pause(){
     wrefresh(pause);
 
     attron(A_BOLD);
-    mvprintw(YOFF+1, 1+XOFF+(COLS-5)/2, "Pause");
+    mvprintw(YOFF+1, XOFF+(COLS-5)/2, "Pause");
     attroff(A_BOLD);
-    mvprintw(YOFF+4, XOFF+2, "Press ESC or P");
-    mvprintw(YOFF+5, XOFF+2, "  to unpause  ");
+    mvprintw(YOFF+4, XOFF+3, "Press p,ESC");
+    mvprintw(YOFF+5, XOFF+3, " to resume ");
 
     while(true){
         if (getch() == ESC || getch() == 'p'){
-            delwin(pause);
+            clear();
+            this->infoBox();
             refresh();
             break;
         }
     }
-    Print::board(snake, food);
 }
