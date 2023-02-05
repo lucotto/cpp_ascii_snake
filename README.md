@@ -13,11 +13,11 @@
 
 -implement random obstacles (gen at game start)
 
--implement controls window
+~~-implement controls window~~
 
--implement pausing system
+~~-implement pausing system~~
 
--game title
+~~-game title~~
 
 -live score
 
@@ -37,7 +37,7 @@
 
 
 ### [Misc]:
--delete debug features (as in genFood() ofstream)
+~~-delete debug features (as in genFood() ofstream)~~
 
 ~~-eventually migrate to some terminal-like display library? ncurses?~~
 
