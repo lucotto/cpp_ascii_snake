@@ -37,5 +37,6 @@
 # Makefile
 Makefile
 
-# Debug txt
+# Debug
+test.cpp
 *.txt
