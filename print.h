@@ -7,6 +7,7 @@
 #include "snake.h"
 #include "food.h"
 #include "const.h"
+#include "colors.h"
 
 class Print{
     public:

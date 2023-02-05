@@ -8,9 +8,9 @@ void Print::board(){    // def terminal is 120x30
     COORD snakeHeadPos = snakeRef.getHeadPos();
     COORD foodPos = foodRef.getPos();
     
-    attron(A_BOLD);
+    attron(A_BOLD | COLOR_PAIR(TEXT_1));
     mvprintw(3, 20 + (WIDTH-5)/2, "Snake");
-    attroff(A_BOLD);
+    attroff(A_BOLD | COLOR_PAIR(TEXT_1));
     
     // in mvaddch i is i+5, j is j+20 (board origin is [20,5])
     for (int i = 0; i < HEIGHT; i++){
@@ -26,8 +26,16 @@ void Print::board(){    // def terminal is 120x30
                 else mvaddch(i+5, j+20, ACS_HLINE);
             }
             else if (j == 0 || j == WIDTH-1) mvaddch(i+5, j+20, ACS_VLINE);
-            else if (j == snakeHeadPos.X && i == snakeHeadPos.Y) mvaddch(i+5, j+20, '0');
-            else if (snakeRef.isBody(j, i)) mvaddch(i+5, j+20, 'o');
+            else if (j == snakeHeadPos.X && i == snakeHeadPos.Y){
+                attron(A_BOLD | COLOR_PAIR(SNAKEH));
+                mvaddch(i+5, j+20, '0');
+                attroff(A_BOLD | COLOR_PAIR(SNAKEH));
+            }
+            else if (snakeRef.isBody(j, i)){
+                attron(COLOR_PAIR(SNAKEB));
+                mvaddch(i+5, j+20, 'o');
+                attroff(COLOR_PAIR(SNAKEB));
+            }
             else if (j == foodPos.X && i == foodPos.Y) mvaddch(i+5, j+20, 'F');
             else mvaddch(i+5, j+20, '.');
         }

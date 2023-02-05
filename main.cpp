@@ -4,6 +4,7 @@
 #include "food.h"
 #include "const.h"
 #include "print.h"
+#include "colors.h"
 
 COORD startingPos = {1, 1};
 Snake snake(startingPos, 1);
@@ -19,11 +20,12 @@ int main(){
     bool gameOver = false;
 
     initscr();
+    wbkgd(stdscr, COLOR_PAIR(9));
     noecho();
     curs_set(0);
     cbreak();
     keypad(stdscr, true);
-    start_color();
+    colors();
 
     print.infoBox();
 
