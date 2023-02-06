@@ -20,7 +20,7 @@ int main(){
     bool gameOver = false;
 
     initscr();
-    wbkgd(stdscr, COLOR_PAIR(9));
+    bkgd(COLOR_PAIR(BG));
     noecho();
     curs_set(0);
     cbreak();
