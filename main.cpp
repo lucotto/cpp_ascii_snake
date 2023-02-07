@@ -29,6 +29,7 @@ int main(){
 
     while (!gameOver){
         print.board();
+        print.score();
 
         snake.move();
         snake.playerInput();

@@ -103,3 +103,7 @@ void Print::pause(){
         }
     }
 }
+
+void Print::score(){
+    mvprintw(4, 21, "Score: %d", snakeRef.getLen()-1);
+}

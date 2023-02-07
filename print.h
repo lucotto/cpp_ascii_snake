@@ -19,6 +19,8 @@ class Print{
         void infoBox();
         void pause();
         void gameEnd(Snake &snake);
+        void score();
+
         
     private:
         Snake &snakeRef;
@@ -26,8 +28,3 @@ class Print{
 };
 
 #endif
-
-// ---- FUNZIONA (stdscr)
-//init_pair(1, COLOR_RED, COLOR_BLACK);
-//attron(COLOR_PAIR(1));
-//attroff(COLOR_PAIR(1));
