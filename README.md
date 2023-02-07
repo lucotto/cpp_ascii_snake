@@ -19,7 +19,7 @@
 
 ~~-game title~~
 
--live score
+~~-live score~~
 
 
 ### [Snake]:
