@@ -132,3 +132,12 @@ bool Snake::isColliding(std::vector<COORD> obs){
 
     return false;
 };
+
+void Snake::halve(){
+    int curSize = this->pos.size() - 1;
+    int toDel = curSize / 2;
+
+    for (int i = 0; i < toDel; i++){
+        this->pos.pop_back();
+    }
+}

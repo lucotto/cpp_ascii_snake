@@ -29,6 +29,8 @@ class Snake{
         void grow();
         bool isColliding(std::vector<COORD> obs);
         bool isBody(const int &i, const int &j);
+
+        void halve();
         
     private:
         std::vector<COORD> pos;

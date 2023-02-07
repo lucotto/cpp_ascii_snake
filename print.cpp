@@ -7,6 +7,7 @@ Print::Print(Snake &snake, Food &food)
 void Print::board(){    // def terminal is 120x30
     COORD snakeHeadPos = snakeRef.getHeadPos();
     COORD foodPos = foodRef.getPos();
+    COORD halfPos = foodRef.getHalf();
     
     attron(A_BOLD);
     mvprintw(3, 20 + (WIDTH-5)/2, "Snake");
@@ -29,6 +30,7 @@ void Print::board(){    // def terminal is 120x30
             else if (j == snakeHeadPos.X && i == snakeHeadPos.Y) mvaddch(i+5, j+20, '0');
             else if (snakeRef.isBody(j, i)) mvaddch(i+5, j+20, 'o');
             else if (j == foodPos.X && i == foodPos.Y) mvaddch(i+5, j+20, 'F');
+            else if (j == halfPos.X && i == halfPos.Y) mvaddch(i+5, j+20, 'H');
             else if (this->isObstacle(j, i)) mvaddch(i+5, j+20, '#');
             else mvaddch(i+5, j+20, '.');
         }

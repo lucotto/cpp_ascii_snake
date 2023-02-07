@@ -32,6 +32,7 @@ int main(){
         print.board();
         print.score();
 
+        food.genHalf();
         snake.move();
         snake.playerInput();
         refresh();
@@ -39,6 +40,12 @@ int main(){
         if (snake.eaten(food.getPos())){
             food.genFood();
             snake.grow();
+            refresh();
+        }
+
+        if (snake.eaten(food.getHalf())){
+            food.popHalf();
+            snake.halve();
             refresh();
         }
 
