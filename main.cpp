@@ -26,6 +26,7 @@ int main(){
     start_color();
 
     print.infoBox();
+    print.setObstacles();
 
     while (!gameOver){
         print.board();
@@ -41,7 +42,7 @@ int main(){
             refresh();
         }
 
-        if (snake.isColliding()) gameOver = true;
+        if (snake.isColliding(print.getObstacles())) gameOver = true;
     }
     
     print.gameEnd(snake);

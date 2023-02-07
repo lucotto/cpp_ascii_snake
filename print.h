@@ -3,6 +3,7 @@
 
 #include <curses.h>
 #include <windows.h>
+#include <vector>
 
 #include "snake.h"
 #include "food.h"
@@ -21,10 +22,14 @@ class Print{
         void gameEnd(Snake &snake);
         void score();
 
-        
+        void setObstacles();
+        std::vector<COORD> getObstacles();
+        bool isObstacle(int &i, int &j);
+
     private:
         Snake &snakeRef;
         Food &foodRef;
+        std::vector<COORD> obstacles;
 };
 
 #endif

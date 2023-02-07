@@ -29,6 +29,7 @@ void Print::board(){    // def terminal is 120x30
             else if (j == snakeHeadPos.X && i == snakeHeadPos.Y) mvaddch(i+5, j+20, '0');
             else if (snakeRef.isBody(j, i)) mvaddch(i+5, j+20, 'o');
             else if (j == foodPos.X && i == foodPos.Y) mvaddch(i+5, j+20, 'F');
+            else if (this->isObstacle(j, i)) mvaddch(i+5, j+20, '#');
             else mvaddch(i+5, j+20, '.');
         }
     }
@@ -106,4 +107,26 @@ void Print::pause(){
 
 void Print::score(){
     mvprintw(4, 21, "Score: %d", snakeRef.getLen()-1);
+}
+
+void Print::setObstacles(){
+    COORD obs;
+
+    while (this->obstacles.size() < OBSTACLES){
+        obs.X = 1 + rand() % (WIDTH - 2);
+        obs.Y = 1 + rand() % (HEIGHT - 2);
+        this->obstacles.push_back({obs});
+    }
+}
+
+std::vector<COORD> Print::getObstacles(){
+    return this->obstacles;
+}
+
+
+bool Print::isObstacle(int &i, int &j){
+    for (auto it = this->obstacles.begin(); it != this->obstacles.end(); it++){
+        if (it->X == i && it->Y == j) return true;
+    }
+    return false;
 }

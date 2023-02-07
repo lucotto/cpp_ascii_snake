@@ -27,7 +27,7 @@ class Snake{
 
         bool eaten(COORD foodPos);
         void grow();
-        bool isColliding();
+        bool isColliding(std::vector<COORD> obs);
         bool isBody(const int &i, const int &j);
         
     private:

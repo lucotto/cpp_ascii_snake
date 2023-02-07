@@ -114,7 +114,7 @@ bool Snake::isBody(const int &i, const int &j){
     return false;
 }
 
-bool Snake::isColliding(){
+bool Snake::isColliding(std::vector<COORD> obs){
     if (this->pos.front().X == 0 ||
         this->pos.front().X == (WIDTH - 1) ||
         this->pos.front().Y == 0 ||
@@ -125,6 +125,10 @@ bool Snake::isColliding(){
     if (this->isBody(this->pos.front().X, this->pos.front().Y)){
         return true;
     }
+
+    for (auto it = obs.begin(); it != obs.end(); it++){
+        if (this->pos.front().X == it->X && this->pos.front().Y == it->Y) return true;
+    }   
 
     return false;
 };
